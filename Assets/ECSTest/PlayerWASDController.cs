@@ -8,8 +8,8 @@ public class PlayerWASDController : MonoBehaviour
     Rigidbody2D myrigidbody;
     int groundlayermask;
     float timeSinceLastJump;
-    public float jumpPower = 1000;
-    public float boosterPower = 30;
+    public float jumpPower = 100;
+    public float boosterPower = 3;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,16 +20,15 @@ public class PlayerWASDController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        bool touchingGround = GetComponent<CircleCollider2D>().IsTouchingLayers(groundlayermask);//16 == foregroundTiles
+        bool touchingGround = GetComponent<CapsuleCollider2D>().IsTouchingLayers(groundlayermask);//16 == foregroundTiles
         Vector2 mov = Vector2.zero;
-        if (touchingGround)
-        {
-            if (Input.GetKey(KeyCode.A))
-                mov += Vector2.left;
-            if (Input.GetKey(KeyCode.D))
-                mov += Vector2.right;
-
-        }
+        
+        if (Input.GetKey(KeyCode.A))
+            mov += Vector2.left;
+        if (Input.GetKey(KeyCode.D))
+            mov += Vector2.right;
+        if (!touchingGround && timeSinceLastJump > 0.3f)
+            mov *= boosterPower;
 
 
 
@@ -45,12 +44,12 @@ public class PlayerWASDController : MonoBehaviour
         }
         else if (Input.GetKey(KeyCode.Space) && timeSinceLastJump > 0.3f)
         {
-            myrigidbody.AddForce(Vector2.up * Time.deltaTime * boosterPower, ForceMode2D.Impulse);
+            mov += Vector2.up * boosterPower;
         }
 
         else if (Input.GetKey(KeyCode.S) && timeSinceLastJump > 0.3f)
         {
-            myrigidbody.AddForce(Vector2.down * Time.deltaTime * boosterPower, ForceMode2D.Impulse);
+            mov -= Vector2.up * boosterPower;
         }
 
 
