@@ -1,0 +1,23 @@
+# Example Travis config. See the entire example: https://github.com/JonathanPorta/ci-build
+
+language: objective-c
+osx_image: xcode8.1
+rvm:
+- 2.4.0
+before_install:
+- chmod a+x ./Scripts/install.sh
+- chmod a+x ./Scripts/build.sh
+- chmod a+x ./Scripts/printlogs.sh
+install:
+- ./Scripts/install.sh
+script:
+- ./Scripts/build.sh
+- ./Scripts/printlogs.sh
+
+deploy:
+  provider: releases
+  api_key: "GITHUB OAUTH TOKEN"
+  file: "./Build/*.zip"
+  skip_cleanup: true
+  on:
+    tags: true
