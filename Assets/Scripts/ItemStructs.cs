@@ -5,10 +5,11 @@ using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
 
-public struct Sprite2DRendererEntity : IComponentData
+public struct Animated2DSpriteEntity : IComponentData
 {
     public List<Texture2D> sprites;
     public int spriteno;
+    public GameObject go;
 }
 public struct ItemData
 {

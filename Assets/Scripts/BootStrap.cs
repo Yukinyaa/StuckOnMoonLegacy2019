@@ -12,9 +12,9 @@ public class BootStrap : MonoBehaviour
     {
         var entityManager = World.Active.GetOrCreateManager<EntityManager>();
         var renderEntity = entityManager.CreateEntity(
-                ComponentType.Create<Animated2DSprite>()
+                ComponentType.Create<Animated2DSpriteEntity>()
             );
-        entityManager.SetComponentData(renderEntity, new Animated2DSprite() { animatedsprite = new List<Texture2D>() { sprite } });
+        entityManager.SetComponentData(renderEntity, new Animated2DSpriteEntity() { sprites = new List<Texture2D>() { sprite }, spriteno = 0 });
     }
 
     // Update is called once per frame
