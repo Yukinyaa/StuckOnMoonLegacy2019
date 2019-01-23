@@ -12,7 +12,6 @@ install:
 - ./Scripts/install.sh
 script:
 - ./Scripts/build.sh
-- ./Scripts/printlogs.sh
 
 deploy:
   provider: releases
